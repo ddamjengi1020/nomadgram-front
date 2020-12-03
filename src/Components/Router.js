@@ -23,7 +23,7 @@ const Router = ({ isLoggedIn }) => (
 );
 
 Router.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool,
 };
 
 export default Router;
