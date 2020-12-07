@@ -18,4 +18,8 @@ export default createGlobalStyle`
     color:${(props) => props.theme.blueColor};
     text-decoration:none;
   }
+  input:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.6px ${(props) => props.theme.blackColor};
+  }
 `;
