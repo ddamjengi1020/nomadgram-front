@@ -11,7 +11,6 @@ import AuthPresenter from "./AuthPresenter";
 import { toast } from "react-toastify";
 
 export default () => {
-  const client = useApolloClient();
   const [action, setAction] = useState("");
   const [isConfirm, setIsConfirm] = useState(false);
   const userName = useInput("");
