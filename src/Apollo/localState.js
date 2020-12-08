@@ -6,6 +6,10 @@ export const typeDefs = gql`
   type Query {
     isLoggedIn: Boolean
   }
+  type Mutation {
+    logUserIn(token: String): Null
+    logUserOut: Null
+  }
 `;
 
 export const resolvers = {
@@ -13,16 +17,18 @@ export const resolvers = {
     isLoggedIn: () => Boolean(localStorage.getItem(TOKEN)) || false,
   },
   Mutation: {
-    isLoggedIn: (_, { token }, { cache }) => {
+    logUserIn: (_, { token }, { cache }) => {
       localStorage.setItem(TOKEN, token);
-      cache.writeData({
-        data: {
-          isLoggedIn: true,
+      cache.modify({
+        fields: {
+          isLoggedIn: (prev) => {
+            return !prev;
+          },
         },
       });
       return null;
     },
-    isLoggedOut: () => {
+    logUserOut: () => {
       localStorage.removeItem(TOKEN);
       window.location.reload();
       return null;

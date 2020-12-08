@@ -7,10 +7,13 @@ const Container = styled.input`
   }
   width: 250px;
   padding: 7px;
-  border: ${(props) => props.theme.boxBorder};
+  border: ${(props) =>
+    props.readOnly ? "1px solid #c7c7c7" : props.theme.boxBorder};
   border-radius: 2px;
-  background-color: #fafafa;
+  background-color: ${(props) =>
+    props.readOnly ? props.theme.lightGreyColor : props.theme.bgColor};
   font-size: 14px;
+  color: ${(props) => (props.readOnly ? "white" : "black")};
   &::placeholder {
     font-size: 13px;
   }
@@ -22,6 +25,7 @@ const Input = ({
   onChange,
   required = true,
   type = "text",
+  readOnly = false,
 }) => (
   <Container
     placeholder={placeholder}
@@ -29,6 +33,7 @@ const Input = ({
     required={required}
     value={value}
     onChange={onChange}
+    readOnly={readOnly}
   />
 );
 
@@ -38,6 +43,7 @@ Input.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
+  readOnly: PropTypes.bool,
 };
 
 export default Input;
