@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useApolloClient, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   CONFIRM_SECRET,
   CREATE_ACCOUNT,

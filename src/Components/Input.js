@@ -16,6 +16,7 @@ const Container = styled.input`
   color: ${(props) => (props.readOnly ? "white" : "black")};
   &::placeholder {
     font-size: 13px;
+    text-align: ${(props) => (props.search ? "center" : "start")};
   }
 `;
 
@@ -26,6 +27,7 @@ const Input = ({
   required = true,
   type = "text",
   readOnly = false,
+  search = false,
 }) => (
   <Container
     placeholder={placeholder}
@@ -34,6 +36,7 @@ const Input = ({
     value={value}
     onChange={onChange}
     readOnly={readOnly}
+    search={search}
   />
 );
 
@@ -44,6 +47,7 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
   readOnly: PropTypes.bool,
+  search: PropTypes.bool,
 };
 
 export default Input;
