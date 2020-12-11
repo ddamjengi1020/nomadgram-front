@@ -1,6 +1,8 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { typeDefs, resolvers } from "./localState";
 
+const getToken = localStorage.getItem("token");
+
 export default new ApolloClient({
   cache: new InMemoryCache(),
   typeDefs,
@@ -11,6 +13,9 @@ export default new ApolloClient({
     onError: ({ networkError, graphQLErrors }) => {
       console.log("graphQLErrors", graphQLErrors);
       console.log("networkError", networkError);
+    },
+    headers: {
+      authorization: getToken ? `Bearer ${getToken}` : "",
     },
   }),
 });

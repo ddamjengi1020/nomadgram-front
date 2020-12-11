@@ -1,28 +1,42 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { HashRouter, Route, Switch } from "react-router-dom";
+import Header from "./Header";
 import Auth from "Routes/Auth";
 import Feed from "Routes/Feed";
-import Header from "./Header";
+import Explore from "Routes/Explore";
+import Profile from "Routes/Profile";
+import Search from "Routes/Search";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.maxFeedWidth};
   width: 100%;
-  padding: 20px 0;
+  padding: ${(props) => (props.isLoggedIn ? "80px 0" : "0")};
   margin: 0 auto;
 `;
-const LoggedInRoutes = () => <Route exact path="/" component={Feed}></Route>;
+const LoggedInRoutes = () => (
+  <>
+    <Header />
+    <Switch>
+      <Route exact path="/" component={Feed} />
+      <Route path="/explore" component={Explore} />
+      <Route path="/search" component={Search} />
+      <Route path="/:username" component={Profile} />
+    </Switch>
+  </>
+);
 
-const LoggedOutRoutes = () => <Route exact path="/" component={Auth}></Route>;
+const LoggedOutRoutes = () => (
+  <Switch>
+    <Route exact path="/" component={Auth} />
+  </Switch>
+);
 
 const Router = ({ isLoggedIn }) => (
   <HashRouter>
-    <Header />
-    <Switch>
-      <Container>
-        {isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}
-      </Container>
-    </Switch>
+    <Container isLoggedIn={isLoggedIn}>
+      {isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}
+    </Container>
   </HashRouter>
 );
 

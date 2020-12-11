@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client";
+import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -11,6 +12,9 @@ import useInput from "Hooks/useInput";
 import Input from "./Input";
 
 const Container = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   padding: 10px 0;
   ${(props) => props.theme.whiteBox};
@@ -59,10 +63,24 @@ const HeaderItem = styled(Link)`
   }
 `;
 
-export default () => {
+const ME = gql`
+  {
+    me {
+      userName
+    }
+  }
+`;
+
+export default withRouter(({ history }) => {
   const search = useInput("");
-  const onSubmit = (e) => {
+
+  const { data } = useQuery(ME);
+
+  const onSearchSubmit = (e) => {
+    const { value, setValue } = search;
     e.preventDefault();
+    history.push(`/search?term=${value}`);
+    setValue("");
   };
   return (
     <Container>
@@ -78,7 +96,7 @@ export default () => {
           </LogoItem>
         </HeaderColumn>
         <HeaderColumn>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSearchSubmit}>
             <Input placeholder={"Search"} {...search} search={true} />
           </form>
         </HeaderColumn>
@@ -97,7 +115,7 @@ export default () => {
               style={{ fontSize: 22 }}
             />
           </HeaderItem>
-          <HeaderItem to={"/user"}>
+          <HeaderItem to={data?.me ? `/${data.me.userName}` : "/#"}>
             <FontAwesomeIcon
               icon={faUserCircle}
               color={"black"}
@@ -108,4 +126,4 @@ export default () => {
       </Wrapper>
     </Container>
   );
-};
+});
