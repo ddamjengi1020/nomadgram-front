@@ -11,7 +11,7 @@ import Search from "Routes/Search";
 const Container = styled.main`
   max-width: ${(props) => props.theme.maxFeedWidth};
   width: 100%;
-  padding: ${(props) => (props.isLoggedIn ? "80px 0" : "0")};
+  padding-top: ${(props) => (props.isLoggedIn ? "80px" : "0")};
   margin: 0 auto;
 `;
 const LoggedInRoutes = () => (

@@ -1,5 +1,5 @@
-const BOX_BORDER = "1px solid #e6e6e6",
-  BORDER_RADIUS = "4px";
+const BOX_BORDER = "1px solid #e6e6e6";
+const BORDER_RADIUS = "4px";
 
 export default {
   maxWidth: "950px",
@@ -11,10 +11,15 @@ export default {
   redColor: "#ED4956",
   blueColor: "#3897f0",
   darkBlueColor: "#003569",
-  boxBorder: "1px solid #e6e6e6",
-  borderRadius: "4px",
+  boxBorder: `${BOX_BORDER}`,
+  borderRadius: `${BORDER_RADIUS}`,
   whiteBox: `border: ${BOX_BORDER};
              border-radius: ${BORDER_RADIUS};
              background-color:white;
             `,
+  avatarSm: "width: 33px; height: 33px;",
+  avatarMd: "width: 56px; height: 56px;",
+  avatarLg: "width: 150px; height: 150px;",
+  defaultAvatar:
+    "https://icon-library.net/images/default-user-icon/default-user-icon-8.jpg",
 };

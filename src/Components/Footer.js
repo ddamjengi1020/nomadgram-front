@@ -7,6 +7,8 @@ const Footer = styled.footer`
   align-items: center;
   font-weight: 300;
   font-size: 12px;
+  margin-top: 35px;
+  margin-bottom: 60px;
 `;
 const Nav = styled.ul`
   display: flex;

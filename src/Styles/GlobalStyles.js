@@ -5,6 +5,7 @@ export default createGlobalStyle`
   ${reset}
   html {
     font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
   }
   * {
     box-sizing: border-box;
@@ -19,6 +20,5 @@ export default createGlobalStyle`
   }
   input:focus {
     outline: none;
-    box-shadow: 0 0 0 0.6px ${(props) => props.theme.blackColor};
   }
 `;

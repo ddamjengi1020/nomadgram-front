@@ -18,6 +18,9 @@ const Container = styled.input`
     font-size: 13px;
     text-align: ${(props) => (props.search ? "center" : "start")};
   }
+  &:focus {
+    box-shadow: 0 0 0 0.6px ${(props) => props.theme.blackColor};
+  }
 `;
 
 const Input = ({
