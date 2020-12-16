@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Button from "Components/Button";
 import Input from "Components/Input";
@@ -62,6 +63,9 @@ const AuthPresenter = ({
   <Wrapper>
     {action === "logIn" ? (
       <>
+        <Helmet>
+          <title>Sign Up | Nomadgram</title>
+        </Helmet>
         <Box>
           <Form onSubmit={onSignUp}>
             <Input placeholder={"Email"} {...email} type={"email"} />
@@ -82,6 +86,9 @@ const AuthPresenter = ({
       </>
     ) : (
       <>
+        <Helmet>
+          <title>{!isConfirm ? "Log In" : "Confirm"} | Nomadgram</title>
+        </Helmet>
         <Box>
           <Form onSubmit={!isConfirm ? onLogIn : onConfirmSecret}>
             <Input

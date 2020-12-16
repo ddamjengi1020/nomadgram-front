@@ -1,8 +1,8 @@
 import Loader from "Components/Loader";
 import Post from "Components/Post";
 import styled from "styled-components";
-
-const { gql, useQuery } = require("@apollo/client");
+import { Helmet } from "react-helmet";
+import { gql, useQuery } from "@apollo/client";
 
 const SEE_FEED = gql`
   {
@@ -47,9 +47,11 @@ const Wrapper = styled.div`
 
 export default () => {
   const { data, loading } = useQuery(SEE_FEED);
-  console.log(data);
   return (
     <Wrapper>
+      <Helmet>
+        <title>Feed | Nomadgram</title>
+      </Helmet>
       {loading ? (
         <Loader size={35} />
       ) : (

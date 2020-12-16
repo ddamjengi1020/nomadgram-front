@@ -17,7 +17,7 @@ export const resolvers = {
     isLoggedIn: () => Boolean(localStorage.getItem(TOKEN)) || false,
   },
   Mutation: {
-    logUserIn: (_, { token }, { cache }) => {
+    logUserIn: (_, { token }, { cache, client }) => {
       localStorage.setItem(TOKEN, token);
       cache.modify({
         fields: {
@@ -30,7 +30,7 @@ export const resolvers = {
     },
     logUserOut: () => {
       localStorage.removeItem(TOKEN);
-      window.location.reload();
+      window.location = "/";
       return null;
     },
   },
