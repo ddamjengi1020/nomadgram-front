@@ -1,6 +1,7 @@
 // import { useState } from "react";
 import PropTypes from "prop-types";
 import PostPresenter from "./PostPresenter";
+import useTextArea from "Hooks/useTextArea";
 
 const PostContainer = ({
   id,
@@ -13,6 +14,12 @@ const PostContainer = ({
   files,
   comments,
 }) => {
+  const { value, setValue, submitRef, onChange, onKeyDown } = useTextArea("");
+  const onCmtSubmit = (e) => {
+    e.preventDefault();
+    // Query
+    setValue("");
+  };
   return (
     <PostPresenter
       location={location}
@@ -23,6 +30,11 @@ const PostContainer = ({
       createAt={createAt}
       files={files}
       comments={comments}
+      addComment={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      submitRef={submitRef}
+      onCmtSubmit={onCmtSubmit}
     />
   );
 };

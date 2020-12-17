@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Avatar from "Components/Avatar";
 import TextWeight from "Components/TextWeight";
+import TextareaAutosize from "react-textarea-autosize";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faHeart } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -49,8 +50,10 @@ const CaptionSection = styled.div`
   display: flex;
   align-items: baseline;
   padding: 10px 14px;
+  white-space: normal;
 `;
 const CaptionText = styled.span`
+  overflow-wrap: break-word;
   line-height: 1.4;
 `;
 const CommentSection = styled.div`
@@ -67,7 +70,6 @@ const CommentPreview = styled.div`
   width: inherit;
   display: flex;
   flex-direction: column;
-  white-space: normal;
 `;
 const PreviewItem = styled.div`
   overflow-wrap: break-word;
@@ -84,15 +86,42 @@ const CreateAt = styled.div`
   color: ${(props) => props.theme.darkGreyColor};
   font-size: 12px;
   padding: 10px 14px;
+  border-bottom: ${(props) => props.theme.boxBorder};
 `;
 
-const AddComment = styled.input`
+const FormSection = styled.form`
+  display: flex;
+  align-items: center;
+`;
+
+const AddComment = styled(TextareaAutosize)`
+  max-width: 90%;
   width: 100%;
   padding: 20px 17px;
   border: none;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-  border-top: ${(props) => props.theme.boxBorder};
+  resize: none;
+  font-size: 14px;
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const FormSmtBtn = styled.button`
+  border: none;
+  color: ${(props) => props.theme.blueColor};
+  background-color: transparent;
+  opacity: 0.7;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const PostPresenter = ({
@@ -104,6 +133,11 @@ const PostPresenter = ({
   createAt,
   files,
   comments,
+  addComment,
+  onChange,
+  onKeyDown,
+  onCmtSubmit,
+  submitRef,
 }) => {
   return (
     <Container>
@@ -179,9 +213,18 @@ const PostPresenter = ({
         </CommentPreview>
       </CommentSection>
       <CreateAt>{`${new Date().getDay(Date.now() - createAt)}`}</CreateAt>
-      <form>
-        <AddComment placeholder="add comment" />
-      </form>
+      <FormSection onSubmit={onCmtSubmit}>
+        <AddComment
+          placeholder={"Add comment"}
+          rows={1}
+          value={addComment}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
+        <FormSmtBtn type="submit" ref={submitRef}>
+          <TextWeight weight={"border"}>Post</TextWeight>
+        </FormSmtBtn>
+      </FormSection>
     </Container>
   );
 };
