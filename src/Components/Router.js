@@ -14,11 +14,15 @@ const Container = styled.main`
   padding-top: ${(props) => (props.isLoggedIn ? "80px" : "0")};
   margin: 0 auto;
 `;
-const LoggedInRoutes = () => (
+const LoggedInRoutes = ({ loggedUser }) => (
   <>
-    <Header />
+    <Header loggedUser={loggedUser} />
     <Switch>
-      <Route exact path="/" component={Feed} />
+      <Route
+        exact
+        path="/"
+        component={() => <Feed loggedUser={loggedUser} />}
+      />
       <Route path="/explore" component={Explore} />
       <Route path="/search" component={Search} />
       <Route path="/:username" component={Profile} />
@@ -32,16 +36,26 @@ const LoggedOutRoutes = () => (
   </Switch>
 );
 
-const Router = ({ isLoggedIn }) => (
+const Router = ({ isLoggedIn, loggedUser }) => (
   <HashRouter>
     <Container isLoggedIn={isLoggedIn}>
-      {isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />}
+      {isLoggedIn ? (
+        <LoggedInRoutes loggedUser={loggedUser} />
+      ) : (
+        <LoggedOutRoutes />
+      )}
     </Container>
   </HashRouter>
 );
 
 Router.propTypes = {
   isLoggedIn: PropTypes.bool,
+  loggedUser: PropTypes.objectOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      userName: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Router;

@@ -10,6 +10,7 @@ import {
   faBookmark,
   faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
+import PostToggleLike from "Components/PostToggleLike";
 
 const IconStyle = { fontSize: 23, marginRight: 15 };
 
@@ -17,6 +18,7 @@ const Container = styled.div`
   ${(props) => props.theme.whiteBox};
   max-width: 615px;
   width: 100%;
+  user-select: none;
   &:not(:last-child) {
     margin-bottom: 60px;
   }
@@ -138,6 +140,8 @@ const PostPresenter = ({
   onKeyDown,
   onCmtSubmit,
   submitRef,
+  onToggleLike,
+  loggedUser,
 }) => {
   return (
     <Container>
@@ -166,6 +170,7 @@ const PostPresenter = ({
                 ? { color: "red", fontSize: 23, marginRight: 15 }
                 : IconStyle
             }
+            onClick={() => onToggleLike()}
           />
           <FontAwesomeIcon style={IconStyle} icon={faComment} />
           <FontAwesomeIcon style={IconStyle} icon={faPaperPlane} />
@@ -175,21 +180,11 @@ const PostPresenter = ({
         </SectionColumn>
       </NavSection>
       <LikeSection>
-        {likes.length !== 0 ? (
-          <>
-            <TextWeight>Liked by</TextWeight>{" "}
-            {likes?.map(
-              (like, idx) =>
-                idx === 0 && (
-                  <TextWeight key={like.id} weight={"border"}>
-                    {like.user.userName}
-                  </TextWeight>
-                )
-            )}{" "}
-            <TextWeight>and</TextWeight>{" "}
-            <TextWeight weight={"border"}>other</TextWeight>
-          </>
-        ) : null}
+        <PostToggleLike
+          likes={likes}
+          isLiked={isLiked}
+          userName={loggedUser?.me.userName}
+        />
       </LikeSection>
       <CaptionSection>
         <TextWeight weight={"border"}>{user?.userName} </TextWeight>

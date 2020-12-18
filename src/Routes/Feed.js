@@ -10,6 +10,7 @@ const SEE_FEED = gql`
       id
       location
       caption
+      isLiked
       user {
         id
         userName
@@ -45,7 +46,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export default () => {
+export default ({ loggedUser }) => {
   const { data, loading } = useQuery(SEE_FEED);
   return (
     <Wrapper>
@@ -68,6 +69,7 @@ export default () => {
             createAt={post.createAt}
             files={post.files}
             comments={post.comments}
+            loggedUser={loggedUser}
           />
         ))
       )}

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { gql, useQuery } from "@apollo/client";
 import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
@@ -63,18 +62,8 @@ const HeaderItem = styled(Link)`
   }
 `;
 
-const ME = gql`
-  {
-    me {
-      userName
-    }
-  }
-`;
-
-export default withRouter(({ history }) => {
+export default withRouter(({ history, loggedUser }) => {
   const search = useInput("");
-
-  const { data } = useQuery(ME);
 
   const onSearchSubmit = (e) => {
     const { value, setValue } = search;
@@ -115,7 +104,9 @@ export default withRouter(({ history }) => {
               style={{ fontSize: 22 }}
             />
           </HeaderItem>
-          <HeaderItem to={data?.me ? `/${data.me.userName}` : "/#"}>
+          <HeaderItem
+            to={loggedUser?.me ? `/${loggedUser?.me.userName}` : "/#"}
+          >
             <FontAwesomeIcon
               icon={faUserCircle}
               color={"black"}

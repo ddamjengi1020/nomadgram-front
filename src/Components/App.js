@@ -12,13 +12,22 @@ const QUERY = gql`
     isLoggedIn @client
   }
 `;
+const ME = gql`
+  {
+    me {
+      id
+      userName
+    }
+  }
+`;
 
 const App = () => {
   const { data } = useQuery(QUERY);
+  const { data: meData } = useQuery(ME);
   return (
     <ThemeProvider theme={Theme}>
       <GlobalStyles />
-      <Router isLoggedIn={data?.isLoggedIn} />
+      <Router isLoggedIn={data?.isLoggedIn} loggedUser={meData} />
       <Footer />
       <ToastContainer
         position={"bottom-left"}
