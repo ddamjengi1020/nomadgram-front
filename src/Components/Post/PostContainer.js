@@ -19,6 +19,8 @@ const PostContainer = ({
 }) => {
   const { value, setValue, submitRef, onChange, onKeyDown } = useTextArea("");
   const [isLikedS, setIsLikedS] = useState(isLiked);
+  const [selfComments, setSelfComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(comments.length);
 
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id },
@@ -32,6 +34,15 @@ const PostContainer = ({
         text: value,
       },
     });
+    setSelfComments([
+      ...selfComments,
+      {
+        id: Math.floor(Math.random() * 100),
+        text: value,
+        userName: loggedUser?.me.userName,
+      },
+    ]);
+    setCommentCount(commentCount + 1);
     setValue("");
   };
   const onToggleLike = () => {
@@ -48,6 +59,7 @@ const PostContainer = ({
       createAt={createAt}
       files={files}
       comments={comments}
+      commentCount={commentCount}
       addComment={value}
       onChange={onChange}
       onKeyDown={onKeyDown}
@@ -55,6 +67,7 @@ const PostContainer = ({
       onCmtSubmit={onCmtSubmit}
       onToggleLike={onToggleLike}
       loggedUser={loggedUser}
+      selfComments={selfComments}
     />
   );
 };

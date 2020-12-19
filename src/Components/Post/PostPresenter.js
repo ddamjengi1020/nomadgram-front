@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Avatar from "Components/Avatar";
 import TextWeight from "Components/TextWeight";
+import PostToggleLike from "Components/PostToggleLike";
 import TextareaAutosize from "react-textarea-autosize";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +11,6 @@ import {
   faBookmark,
   faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
-import PostToggleLike from "Components/PostToggleLike";
 
 const IconStyle = { fontSize: 23, marginRight: 15 };
 
@@ -135,6 +135,7 @@ const PostPresenter = ({
   createAt,
   files,
   comments,
+  commentCount,
   addComment,
   onChange,
   onKeyDown,
@@ -142,6 +143,7 @@ const PostPresenter = ({
   submitRef,
   onToggleLike,
   loggedUser,
+  selfComments,
 }) => {
   return (
     <Container>
@@ -192,7 +194,7 @@ const PostPresenter = ({
       </CaptionSection>
       <CommentSection>
         <CommentViewAll>
-          {comments?.length > 1 && `View all ${comments.length} comments`}
+          {comments?.length > 1 && `View all ${commentCount} comments`}
         </CommentViewAll>
         <CommentPreview>
           {comments?.map((comment, idx) =>
@@ -205,6 +207,12 @@ const PostPresenter = ({
               </PreviewItem>
             ) : null
           )}
+          {selfComments.map((selfComment) => (
+            <PreviewItem key={selfComment.id}>
+              <TextWeight weight={"border"}>{selfComment.userName}</TextWeight>
+              {selfComment.text}
+            </PreviewItem>
+          ))}
         </CommentPreview>
       </CommentSection>
       <CreateAt>{`${new Date().getDay(Date.now() - createAt)}`}</CreateAt>
