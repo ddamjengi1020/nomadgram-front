@@ -11,6 +11,7 @@ import {
   faBookmark,
   faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 const IconStyle = { fontSize: 23, marginRight: 15 };
 
@@ -126,6 +127,16 @@ const FormSmtBtn = styled.button`
   }
 `;
 
+const AuthorLink = styled(Link)`
+  font-weight: 700;
+  font-size: 14px;
+  color: ${(props) => props.theme.blackColor};
+`;
+
+const Icon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+`;
+
 const PostPresenter = ({
   location,
   caption,
@@ -149,13 +160,11 @@ const PostPresenter = ({
     <Container>
       <AuthorSection>
         <SectionColumn>
-          <Avatar size={"sm"} avatarUrl={user?.avatar} isPost={true} />
-          <TextWeight weight={"border"} size={14}>
-            {user?.userName}
-          </TextWeight>
+          <Avatar size={"sm"} avatarUrl={user.avatar} isPost={true} />
+          <AuthorLink to={`/${user.userName}`}>{user.userName}</AuthorLink>
         </SectionColumn>
         <SectionColumn>
-          <FontAwesomeIcon icon={faEllipsisH} />
+          <Icon icon={faEllipsisH} />
         </SectionColumn>
       </AuthorSection>
       <ImageSection>
@@ -165,20 +174,20 @@ const PostPresenter = ({
       </ImageSection>
       <NavSection>
         <SectionColumn>
-          <FontAwesomeIcon
+          <Icon
             icon={isLiked ? faHeart : emptyHeart}
             style={
               isLiked
                 ? { color: "red", fontSize: 23, marginRight: 15 }
                 : IconStyle
             }
-            onClick={() => onToggleLike()}
+            onClick={onToggleLike}
           />
-          <FontAwesomeIcon style={IconStyle} icon={faComment} />
-          <FontAwesomeIcon style={IconStyle} icon={faPaperPlane} />
+          <Icon style={IconStyle} icon={faComment} />
+          <Icon style={IconStyle} icon={faPaperPlane} />
         </SectionColumn>
         <SectionColumn>
-          <FontAwesomeIcon style={{ fontSize: 23 }} icon={faBookmark} />
+          <Icon style={{ fontSize: 23 }} icon={faBookmark} />
         </SectionColumn>
       </NavSection>
       <LikeSection>
@@ -189,16 +198,16 @@ const PostPresenter = ({
         />
       </LikeSection>
       <CaptionSection>
-        <TextWeight weight={"border"}>{user?.userName} </TextWeight>
+        <TextWeight weight={"border"}>{user.userName} </TextWeight>
         <CaptionText>{caption}</CaptionText>
       </CaptionSection>
       <CommentSection>
         <CommentViewAll>
-          {comments?.length > 1 && `View all ${commentCount} comments`}
+          {comments.length > 1 && `View all ${commentCount} comments`}
         </CommentViewAll>
         <CommentPreview>
-          {comments?.map((comment, idx) =>
-            idx < 2 ? (
+          {comments.map((comment, idx) =>
+            idx > comments.length - 3 ? (
               <PreviewItem key={comment.id}>
                 <TextWeight weight={"border"}>
                   {comment.user.userName}

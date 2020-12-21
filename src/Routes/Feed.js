@@ -54,7 +54,7 @@ export default ({ loggedUser }) => {
         <title>Feed | Nomadgram</title>
       </Helmet>
       {loading ? (
-        <Loader size={35} />
+        <Loader />
       ) : (
         data?.seeFeed &&
         data.seeFeed.map((post) => (

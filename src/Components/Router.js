@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import Auth from "Routes/Auth";
 import Feed from "Routes/Feed";
@@ -9,7 +9,7 @@ import Profile from "Routes/Profile";
 import Search from "Routes/Search";
 
 const Container = styled.main`
-  max-width: ${(props) => props.theme.maxFeedWidth};
+  max-width: ${(props) => props.theme.maxWidth};
   width: 100%;
   padding-top: ${(props) => (props.isLoggedIn ? "80px" : "0")};
   margin: 0 auto;
@@ -26,6 +26,7 @@ const LoggedInRoutes = ({ loggedUser }) => (
       <Route path="/explore" component={Explore} />
       <Route path="/search" component={Search} />
       <Route path="/:username" component={Profile} />
+      <Redirect from="*" to="/" />
     </Switch>
   </>
 );

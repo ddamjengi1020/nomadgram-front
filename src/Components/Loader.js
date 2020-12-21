@@ -39,7 +39,7 @@ const Bar = styled.div`
   }
 `;
 
-const Loader = ({ size }) => (
+const Loader = ({ size = 35 }) => (
   <Container size={size}>
     <Bar />
     <Bar />
@@ -49,7 +49,7 @@ const Loader = ({ size }) => (
 );
 
 Loader.propTypes = {
-  size: PropTypes.number.isRequired,
+  size: PropTypes.number,
 };
 
 export default Loader;

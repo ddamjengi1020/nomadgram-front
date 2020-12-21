@@ -3,7 +3,6 @@ const BORDER_RADIUS = "4px";
 
 export default {
   maxWidth: "950px",
-  maxFeedWidth: "930px",
   bgColor: "#FAFAFA",
   blackColor: "#262626",
   darkGreyColor: "#999",
